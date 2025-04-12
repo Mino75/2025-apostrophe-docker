@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:22 as builder
+FROM node:22-alpine as builder
 
 WORKDIR /app
 
@@ -14,9 +14,11 @@ COPY . .
 # RUN npm run build
 
 # Stage 2: Production Image
-FROM node:22
+FROM node:22-alpine
 
 WORKDIR /app
+
+ENV NODE_ENV=production
 
 # Copy only necessary files from the build stage
 COPY --from=builder /app /app
